@@ -1,0 +1,721 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="SVEntityDataModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="ClassMaster">
+          <Key>
+            <PropertyRef Name="ClassMasterID" />
+          </Key>
+          <Property Name="ClassMasterID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ClassName" Type="nvarchar" MaxLength="50" />
+          <Property Name="CreatedDate" Type="nvarchar" MaxLength="50" />
+          <Property Name="DataEntryOperatorID" Type="int" />
+        </EntityType>
+        <EntityType Name="DataEntryOperator">
+          <Key>
+            <PropertyRef Name="DataEntryOperatorID" />
+          </Key>
+          <Property Name="DataEntryOperatorID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DataEntryOperatorName" Type="nvarchar" MaxLength="50" />
+          <Property Name="CreatedDate" Type="nvarchar" MaxLength="50" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="SectionMaster">
+          <Key>
+            <PropertyRef Name="SectionMasterID" />
+          </Key>
+          <Property Name="SectionMasterID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ClassMasterID" Type="int" />
+          <Property Name="SectionName" Type="nvarchar" MaxLength="50" />
+          <Property Name="CreatedDate" Type="nvarchar" MaxLength="50" />
+          <Property Name="DataEntryOperatorID" Type="int" />
+        </EntityType>
+        <EntityType Name="StudentAdmission">
+          <Key>
+            <PropertyRef Name="StudentAdmissionID" />
+          </Key>
+          <Property Name="StudentAdmissionID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AdmissionNumber" Type="nvarchar" MaxLength="50" />
+          <Property Name="StudentName" Type="nvarchar" MaxLength="50" />
+          <Property Name="FatherName" Type="nvarchar" MaxLength="50" />
+          <Property Name="ContactNumber" Type="nvarchar" MaxLength="50" />
+          <Property Name="EMISNumber" Type="nvarchar" MaxLength="50" />
+          <Property Name="AadhaarNumber" Type="nvarchar" MaxLength="50" />
+          <Property Name="DateOfBirth" Type="nvarchar" MaxLength="50" />
+          <Property Name="BloodGroup" Type="nvarchar" MaxLength="50" />
+          <Property Name="CreatedDate" Type="nvarchar" MaxLength="50" />
+          <Property Name="DataEntryOperatorID" Type="int" />
+          <Property Name="Gender" Type="bit" />
+          <Property Name="Community" Type="nvarchar" MaxLength="50" />
+          <Property Name="MotherName" Type="nvarchar" MaxLength="50" />
+          <Property Name="PlaceOfBirth" Type="nvarchar" MaxLength="50" />
+          <Property Name="AdmissionYear" Type="nvarchar" MaxLength="50" />
+          <Property Name="AdmissionClass" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="StudentFees">
+          <Key>
+            <PropertyRef Name="StudentFeesID" />
+          </Key>
+          <Property Name="StudentFeesID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StudentRollID" Type="int" />
+          <Property Name="TotalFees" Type="nvarchar" MaxLength="50" />
+          <Property Name="CreatedDate" Type="nvarchar" MaxLength="50" />
+          <Property Name="DataEntryOperatorID" Type="int" />
+        </EntityType>
+        <EntityType Name="StudentRoll">
+          <Key>
+            <PropertyRef Name="StudentRollID" />
+          </Key>
+          <Property Name="StudentRollID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RollNumber" Type="nvarchar" MaxLength="50" />
+          <Property Name="StudentAdmissionID" Type="int" />
+          <Property Name="ClassMasterID" Type="int" />
+          <Property Name="SectionMasterID" Type="int" />
+          <Property Name="YearMasterID" Type="int" />
+          <Property Name="CreatedDate" Type="nvarchar" MaxLength="50" />
+          <Property Name="DataEntryOperatorID" Type="int" />
+        </EntityType>
+        <EntityType Name="YearMaster">
+          <Key>
+            <PropertyRef Name="YearMasterID" />
+          </Key>
+          <Property Name="YearMasterID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="YearName" Type="nvarchar" MaxLength="50" />
+          <Property Name="CreatedDate" Type="nvarchar" MaxLength="50" />
+          <Property Name="DataEntryOperatorID" Type="int" />
+        </EntityType>
+        <Association Name="FK_ClassMaster_DataEntryOperator">
+          <End Role="DataEntryOperator" Type="Self.DataEntryOperator" Multiplicity="0..1" />
+          <End Role="ClassMaster" Type="Self.ClassMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DataEntryOperator">
+              <PropertyRef Name="DataEntryOperatorID" />
+            </Principal>
+            <Dependent Role="ClassMaster">
+              <PropertyRef Name="DataEntryOperatorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SectionMaster_ClassMaster">
+          <End Role="ClassMaster" Type="Self.ClassMaster" Multiplicity="0..1" />
+          <End Role="SectionMaster" Type="Self.SectionMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ClassMaster">
+              <PropertyRef Name="ClassMasterID" />
+            </Principal>
+            <Dependent Role="SectionMaster">
+              <PropertyRef Name="ClassMasterID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SectionMaster_DataEntryOperator">
+          <End Role="DataEntryOperator" Type="Self.DataEntryOperator" Multiplicity="0..1" />
+          <End Role="SectionMaster" Type="Self.SectionMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DataEntryOperator">
+              <PropertyRef Name="DataEntryOperatorID" />
+            </Principal>
+            <Dependent Role="SectionMaster">
+              <PropertyRef Name="DataEntryOperatorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StudentAdmission_DataEntryOperator">
+          <End Role="DataEntryOperator" Type="Self.DataEntryOperator" Multiplicity="0..1" />
+          <End Role="StudentAdmission" Type="Self.StudentAdmission" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DataEntryOperator">
+              <PropertyRef Name="DataEntryOperatorID" />
+            </Principal>
+            <Dependent Role="StudentAdmission">
+              <PropertyRef Name="DataEntryOperatorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StudentFees_DataEntryOperator">
+          <End Role="DataEntryOperator" Type="Self.DataEntryOperator" Multiplicity="0..1" />
+          <End Role="StudentFees" Type="Self.StudentFees" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DataEntryOperator">
+              <PropertyRef Name="DataEntryOperatorID" />
+            </Principal>
+            <Dependent Role="StudentFees">
+              <PropertyRef Name="DataEntryOperatorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StudentFees_StudentRoll">
+          <End Role="StudentRoll" Type="Self.StudentRoll" Multiplicity="0..1" />
+          <End Role="StudentFees" Type="Self.StudentFees" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StudentRoll">
+              <PropertyRef Name="StudentRollID" />
+            </Principal>
+            <Dependent Role="StudentFees">
+              <PropertyRef Name="StudentRollID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StudentRoll_ClassMaster">
+          <End Role="ClassMaster" Type="Self.ClassMaster" Multiplicity="0..1" />
+          <End Role="StudentRoll" Type="Self.StudentRoll" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ClassMaster">
+              <PropertyRef Name="ClassMasterID" />
+            </Principal>
+            <Dependent Role="StudentRoll">
+              <PropertyRef Name="ClassMasterID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StudentRoll_DataEntryOperator">
+          <End Role="DataEntryOperator" Type="Self.DataEntryOperator" Multiplicity="0..1" />
+          <End Role="StudentRoll" Type="Self.StudentRoll" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DataEntryOperator">
+              <PropertyRef Name="DataEntryOperatorID" />
+            </Principal>
+            <Dependent Role="StudentRoll">
+              <PropertyRef Name="DataEntryOperatorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StudentRoll_SectionMaster">
+          <End Role="SectionMaster" Type="Self.SectionMaster" Multiplicity="0..1" />
+          <End Role="StudentRoll" Type="Self.StudentRoll" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SectionMaster">
+              <PropertyRef Name="SectionMasterID" />
+            </Principal>
+            <Dependent Role="StudentRoll">
+              <PropertyRef Name="SectionMasterID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StudentRoll_StudentAdmission">
+          <End Role="StudentAdmission" Type="Self.StudentAdmission" Multiplicity="0..1" />
+          <End Role="StudentRoll" Type="Self.StudentRoll" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StudentAdmission">
+              <PropertyRef Name="StudentAdmissionID" />
+            </Principal>
+            <Dependent Role="StudentRoll">
+              <PropertyRef Name="StudentAdmissionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StudentRoll_YearMaster">
+          <End Role="YearMaster" Type="Self.YearMaster" Multiplicity="0..1" />
+          <End Role="StudentRoll" Type="Self.StudentRoll" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="YearMaster">
+              <PropertyRef Name="YearMasterID" />
+            </Principal>
+            <Dependent Role="StudentRoll">
+              <PropertyRef Name="YearMasterID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_YearMaster_DataEntryOperator">
+          <End Role="DataEntryOperator" Type="Self.DataEntryOperator" Multiplicity="0..1" />
+          <End Role="YearMaster" Type="Self.YearMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DataEntryOperator">
+              <PropertyRef Name="DataEntryOperatorID" />
+            </Principal>
+            <Dependent Role="YearMaster">
+              <PropertyRef Name="DataEntryOperatorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="SVEntityDataModelStoreContainer">
+          <EntitySet Name="ClassMaster" EntityType="Self.ClassMaster" Schema="bommuraj_svhss" store:Type="Tables" />
+          <EntitySet Name="DataEntryOperator" EntityType="Self.DataEntryOperator" Schema="bommuraj_svhss" store:Type="Tables" />
+          <EntitySet Name="SectionMaster" EntityType="Self.SectionMaster" Schema="bommuraj_svhss" store:Type="Tables" />
+          <EntitySet Name="StudentAdmission" EntityType="Self.StudentAdmission" Schema="bommuraj_svhss" store:Type="Tables" />
+          <EntitySet Name="StudentFees" EntityType="Self.StudentFees" Schema="bommuraj_svhss" store:Type="Tables" />
+          <EntitySet Name="StudentRoll" EntityType="Self.StudentRoll" Schema="bommuraj_svhss" store:Type="Tables" />
+          <EntitySet Name="YearMaster" EntityType="Self.YearMaster" Schema="bommuraj_svhss" store:Type="Tables" />
+          <AssociationSet Name="FK_ClassMaster_DataEntryOperator" Association="Self.FK_ClassMaster_DataEntryOperator">
+            <End Role="DataEntryOperator" EntitySet="DataEntryOperator" />
+            <End Role="ClassMaster" EntitySet="ClassMaster" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SectionMaster_ClassMaster" Association="Self.FK_SectionMaster_ClassMaster">
+            <End Role="ClassMaster" EntitySet="ClassMaster" />
+            <End Role="SectionMaster" EntitySet="SectionMaster" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SectionMaster_DataEntryOperator" Association="Self.FK_SectionMaster_DataEntryOperator">
+            <End Role="DataEntryOperator" EntitySet="DataEntryOperator" />
+            <End Role="SectionMaster" EntitySet="SectionMaster" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StudentAdmission_DataEntryOperator" Association="Self.FK_StudentAdmission_DataEntryOperator">
+            <End Role="DataEntryOperator" EntitySet="DataEntryOperator" />
+            <End Role="StudentAdmission" EntitySet="StudentAdmission" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StudentFees_DataEntryOperator" Association="Self.FK_StudentFees_DataEntryOperator">
+            <End Role="DataEntryOperator" EntitySet="DataEntryOperator" />
+            <End Role="StudentFees" EntitySet="StudentFees" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StudentFees_StudentRoll" Association="Self.FK_StudentFees_StudentRoll">
+            <End Role="StudentRoll" EntitySet="StudentRoll" />
+            <End Role="StudentFees" EntitySet="StudentFees" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StudentRoll_ClassMaster" Association="Self.FK_StudentRoll_ClassMaster">
+            <End Role="ClassMaster" EntitySet="ClassMaster" />
+            <End Role="StudentRoll" EntitySet="StudentRoll" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StudentRoll_DataEntryOperator" Association="Self.FK_StudentRoll_DataEntryOperator">
+            <End Role="DataEntryOperator" EntitySet="DataEntryOperator" />
+            <End Role="StudentRoll" EntitySet="StudentRoll" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StudentRoll_SectionMaster" Association="Self.FK_StudentRoll_SectionMaster">
+            <End Role="SectionMaster" EntitySet="SectionMaster" />
+            <End Role="StudentRoll" EntitySet="StudentRoll" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StudentRoll_StudentAdmission" Association="Self.FK_StudentRoll_StudentAdmission">
+            <End Role="StudentAdmission" EntitySet="StudentAdmission" />
+            <End Role="StudentRoll" EntitySet="StudentRoll" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StudentRoll_YearMaster" Association="Self.FK_StudentRoll_YearMaster">
+            <End Role="YearMaster" EntitySet="YearMaster" />
+            <End Role="StudentRoll" EntitySet="StudentRoll" />
+          </AssociationSet>
+          <AssociationSet Name="FK_YearMaster_DataEntryOperator" Association="Self.FK_YearMaster_DataEntryOperator">
+            <End Role="DataEntryOperator" EntitySet="DataEntryOperator" />
+            <End Role="YearMaster" EntitySet="YearMaster" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="SVEntityDataModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="ClassMaster">
+          <Key>
+            <PropertyRef Name="ClassMasterID" />
+          </Key>
+          <Property Name="ClassMasterID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ClassName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedDate" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DataEntryOperatorID" Type="Int32" />
+          <NavigationProperty Name="DataEntryOperator" Relationship="Self.FK_ClassMaster_DataEntryOperator" FromRole="ClassMaster" ToRole="DataEntryOperator" />
+          <NavigationProperty Name="SectionMasters" Relationship="Self.FK_SectionMaster_ClassMaster" FromRole="ClassMaster" ToRole="SectionMaster" />
+          <NavigationProperty Name="StudentRolls" Relationship="Self.FK_StudentRoll_ClassMaster" FromRole="ClassMaster" ToRole="StudentRoll" />
+        </EntityType>
+        <EntityType Name="DataEntryOperator">
+          <Key>
+            <PropertyRef Name="DataEntryOperatorID" />
+          </Key>
+          <Property Name="DataEntryOperatorID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DataEntryOperatorName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedDate" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="ClassMasters" Relationship="Self.FK_ClassMaster_DataEntryOperator" FromRole="DataEntryOperator" ToRole="ClassMaster" />
+          <NavigationProperty Name="SectionMasters" Relationship="Self.FK_SectionMaster_DataEntryOperator" FromRole="DataEntryOperator" ToRole="SectionMaster" />
+          <NavigationProperty Name="StudentAdmissions" Relationship="Self.FK_StudentAdmission_DataEntryOperator" FromRole="DataEntryOperator" ToRole="StudentAdmission" />
+          <NavigationProperty Name="StudentFees" Relationship="Self.FK_StudentFees_DataEntryOperator" FromRole="DataEntryOperator" ToRole="StudentFees" />
+          <NavigationProperty Name="StudentRolls" Relationship="Self.FK_StudentRoll_DataEntryOperator" FromRole="DataEntryOperator" ToRole="StudentRoll" />
+          <NavigationProperty Name="YearMasters" Relationship="Self.FK_YearMaster_DataEntryOperator" FromRole="DataEntryOperator" ToRole="YearMaster" />
+        </EntityType>
+        <EntityType Name="SectionMaster">
+          <Key>
+            <PropertyRef Name="SectionMasterID" />
+          </Key>
+          <Property Name="SectionMasterID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ClassMasterID" Type="Int32" />
+          <Property Name="SectionName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedDate" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DataEntryOperatorID" Type="Int32" />
+          <NavigationProperty Name="ClassMaster" Relationship="Self.FK_SectionMaster_ClassMaster" FromRole="SectionMaster" ToRole="ClassMaster" />
+          <NavigationProperty Name="DataEntryOperator" Relationship="Self.FK_SectionMaster_DataEntryOperator" FromRole="SectionMaster" ToRole="DataEntryOperator" />
+          <NavigationProperty Name="StudentRolls" Relationship="Self.FK_StudentRoll_SectionMaster" FromRole="SectionMaster" ToRole="StudentRoll" />
+        </EntityType>
+        <EntityType Name="StudentAdmission">
+          <Key>
+            <PropertyRef Name="StudentAdmissionID" />
+          </Key>
+          <Property Name="StudentAdmissionID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AdmissionNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="StudentName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FatherName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ContactNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="EMISNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AadhaarNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DateOfBirth" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="BloodGroup" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedDate" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DataEntryOperatorID" Type="Int32" />
+          <Property Name="Gender" Type="Boolean" />
+          <Property Name="Community" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MotherName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PlaceOfBirth" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AdmissionYear" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AdmissionClass" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="DataEntryOperator" Relationship="Self.FK_StudentAdmission_DataEntryOperator" FromRole="StudentAdmission" ToRole="DataEntryOperator" />
+          <NavigationProperty Name="StudentRolls" Relationship="Self.FK_StudentRoll_StudentAdmission" FromRole="StudentAdmission" ToRole="StudentRoll" />
+        </EntityType>
+        <EntityType Name="StudentFee">
+          <Key>
+            <PropertyRef Name="StudentFeesID" />
+          </Key>
+          <Property Name="StudentFeesID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StudentRollID" Type="Int32" />
+          <Property Name="TotalFees" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedDate" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DataEntryOperatorID" Type="Int32" />
+          <NavigationProperty Name="DataEntryOperator" Relationship="Self.FK_StudentFees_DataEntryOperator" FromRole="StudentFees" ToRole="DataEntryOperator" />
+          <NavigationProperty Name="StudentRoll" Relationship="Self.FK_StudentFees_StudentRoll" FromRole="StudentFees" ToRole="StudentRoll" />
+        </EntityType>
+        <EntityType Name="StudentRoll">
+          <Key>
+            <PropertyRef Name="StudentRollID" />
+          </Key>
+          <Property Name="StudentRollID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RollNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="StudentAdmissionID" Type="Int32" />
+          <Property Name="ClassMasterID" Type="Int32" />
+          <Property Name="SectionMasterID" Type="Int32" />
+          <Property Name="YearMasterID" Type="Int32" />
+          <Property Name="CreatedDate" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DataEntryOperatorID" Type="Int32" />
+          <NavigationProperty Name="ClassMaster" Relationship="Self.FK_StudentRoll_ClassMaster" FromRole="StudentRoll" ToRole="ClassMaster" />
+          <NavigationProperty Name="DataEntryOperator" Relationship="Self.FK_StudentRoll_DataEntryOperator" FromRole="StudentRoll" ToRole="DataEntryOperator" />
+          <NavigationProperty Name="SectionMaster" Relationship="Self.FK_StudentRoll_SectionMaster" FromRole="StudentRoll" ToRole="SectionMaster" />
+          <NavigationProperty Name="StudentAdmission" Relationship="Self.FK_StudentRoll_StudentAdmission" FromRole="StudentRoll" ToRole="StudentAdmission" />
+          <NavigationProperty Name="StudentFees" Relationship="Self.FK_StudentFees_StudentRoll" FromRole="StudentRoll" ToRole="StudentFees" />
+          <NavigationProperty Name="YearMaster" Relationship="Self.FK_StudentRoll_YearMaster" FromRole="StudentRoll" ToRole="YearMaster" />
+        </EntityType>
+        <EntityType Name="YearMaster">
+          <Key>
+            <PropertyRef Name="YearMasterID" />
+          </Key>
+          <Property Name="YearMasterID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="YearName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedDate" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DataEntryOperatorID" Type="Int32" />
+          <NavigationProperty Name="DataEntryOperator" Relationship="Self.FK_YearMaster_DataEntryOperator" FromRole="YearMaster" ToRole="DataEntryOperator" />
+          <NavigationProperty Name="StudentRolls" Relationship="Self.FK_StudentRoll_YearMaster" FromRole="YearMaster" ToRole="StudentRoll" />
+        </EntityType>
+        <Association Name="FK_ClassMaster_DataEntryOperator">
+          <End Role="DataEntryOperator" Type="Self.DataEntryOperator" Multiplicity="0..1" />
+          <End Role="ClassMaster" Type="Self.ClassMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DataEntryOperator">
+              <PropertyRef Name="DataEntryOperatorID" />
+            </Principal>
+            <Dependent Role="ClassMaster">
+              <PropertyRef Name="DataEntryOperatorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SectionMaster_ClassMaster">
+          <End Role="ClassMaster" Type="Self.ClassMaster" Multiplicity="0..1" />
+          <End Role="SectionMaster" Type="Self.SectionMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ClassMaster">
+              <PropertyRef Name="ClassMasterID" />
+            </Principal>
+            <Dependent Role="SectionMaster">
+              <PropertyRef Name="ClassMasterID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StudentRoll_ClassMaster">
+          <End Role="ClassMaster" Type="Self.ClassMaster" Multiplicity="0..1" />
+          <End Role="StudentRoll" Type="Self.StudentRoll" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ClassMaster">
+              <PropertyRef Name="ClassMasterID" />
+            </Principal>
+            <Dependent Role="StudentRoll">
+              <PropertyRef Name="ClassMasterID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SectionMaster_DataEntryOperator">
+          <End Role="DataEntryOperator" Type="Self.DataEntryOperator" Multiplicity="0..1" />
+          <End Role="SectionMaster" Type="Self.SectionMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DataEntryOperator">
+              <PropertyRef Name="DataEntryOperatorID" />
+            </Principal>
+            <Dependent Role="SectionMaster">
+              <PropertyRef Name="DataEntryOperatorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StudentAdmission_DataEntryOperator">
+          <End Role="DataEntryOperator" Type="Self.DataEntryOperator" Multiplicity="0..1" />
+          <End Role="StudentAdmission" Type="Self.StudentAdmission" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DataEntryOperator">
+              <PropertyRef Name="DataEntryOperatorID" />
+            </Principal>
+            <Dependent Role="StudentAdmission">
+              <PropertyRef Name="DataEntryOperatorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StudentFees_DataEntryOperator">
+          <End Role="DataEntryOperator" Type="Self.DataEntryOperator" Multiplicity="0..1" />
+          <End Role="StudentFees" Type="Self.StudentFee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DataEntryOperator">
+              <PropertyRef Name="DataEntryOperatorID" />
+            </Principal>
+            <Dependent Role="StudentFees">
+              <PropertyRef Name="DataEntryOperatorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StudentRoll_DataEntryOperator">
+          <End Role="DataEntryOperator" Type="Self.DataEntryOperator" Multiplicity="0..1" />
+          <End Role="StudentRoll" Type="Self.StudentRoll" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DataEntryOperator">
+              <PropertyRef Name="DataEntryOperatorID" />
+            </Principal>
+            <Dependent Role="StudentRoll">
+              <PropertyRef Name="DataEntryOperatorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_YearMaster_DataEntryOperator">
+          <End Role="DataEntryOperator" Type="Self.DataEntryOperator" Multiplicity="0..1" />
+          <End Role="YearMaster" Type="Self.YearMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DataEntryOperator">
+              <PropertyRef Name="DataEntryOperatorID" />
+            </Principal>
+            <Dependent Role="YearMaster">
+              <PropertyRef Name="DataEntryOperatorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StudentRoll_SectionMaster">
+          <End Role="SectionMaster" Type="Self.SectionMaster" Multiplicity="0..1" />
+          <End Role="StudentRoll" Type="Self.StudentRoll" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SectionMaster">
+              <PropertyRef Name="SectionMasterID" />
+            </Principal>
+            <Dependent Role="StudentRoll">
+              <PropertyRef Name="SectionMasterID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StudentRoll_StudentAdmission">
+          <End Role="StudentAdmission" Type="Self.StudentAdmission" Multiplicity="0..1" />
+          <End Role="StudentRoll" Type="Self.StudentRoll" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StudentAdmission">
+              <PropertyRef Name="StudentAdmissionID" />
+            </Principal>
+            <Dependent Role="StudentRoll">
+              <PropertyRef Name="StudentAdmissionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StudentFees_StudentRoll">
+          <End Role="StudentRoll" Type="Self.StudentRoll" Multiplicity="0..1" />
+          <End Role="StudentFees" Type="Self.StudentFee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StudentRoll">
+              <PropertyRef Name="StudentRollID" />
+            </Principal>
+            <Dependent Role="StudentFees">
+              <PropertyRef Name="StudentRollID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StudentRoll_YearMaster">
+          <End Role="YearMaster" Type="Self.YearMaster" Multiplicity="0..1" />
+          <End Role="StudentRoll" Type="Self.StudentRoll" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="YearMaster">
+              <PropertyRef Name="YearMasterID" />
+            </Principal>
+            <Dependent Role="StudentRoll">
+              <PropertyRef Name="YearMasterID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="SVEntitiesDataModel" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="ClassMasters" EntityType="Self.ClassMaster" />
+          <EntitySet Name="DataEntryOperators" EntityType="Self.DataEntryOperator" />
+          <EntitySet Name="SectionMasters" EntityType="Self.SectionMaster" />
+          <EntitySet Name="StudentAdmissions" EntityType="Self.StudentAdmission" />
+          <EntitySet Name="StudentFees" EntityType="Self.StudentFee" />
+          <EntitySet Name="StudentRolls" EntityType="Self.StudentRoll" />
+          <EntitySet Name="YearMasters" EntityType="Self.YearMaster" />
+          <AssociationSet Name="FK_ClassMaster_DataEntryOperator" Association="Self.FK_ClassMaster_DataEntryOperator">
+            <End Role="DataEntryOperator" EntitySet="DataEntryOperators" />
+            <End Role="ClassMaster" EntitySet="ClassMasters" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SectionMaster_ClassMaster" Association="Self.FK_SectionMaster_ClassMaster">
+            <End Role="ClassMaster" EntitySet="ClassMasters" />
+            <End Role="SectionMaster" EntitySet="SectionMasters" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StudentRoll_ClassMaster" Association="Self.FK_StudentRoll_ClassMaster">
+            <End Role="ClassMaster" EntitySet="ClassMasters" />
+            <End Role="StudentRoll" EntitySet="StudentRolls" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SectionMaster_DataEntryOperator" Association="Self.FK_SectionMaster_DataEntryOperator">
+            <End Role="DataEntryOperator" EntitySet="DataEntryOperators" />
+            <End Role="SectionMaster" EntitySet="SectionMasters" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StudentAdmission_DataEntryOperator" Association="Self.FK_StudentAdmission_DataEntryOperator">
+            <End Role="DataEntryOperator" EntitySet="DataEntryOperators" />
+            <End Role="StudentAdmission" EntitySet="StudentAdmissions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StudentFees_DataEntryOperator" Association="Self.FK_StudentFees_DataEntryOperator">
+            <End Role="DataEntryOperator" EntitySet="DataEntryOperators" />
+            <End Role="StudentFees" EntitySet="StudentFees" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StudentRoll_DataEntryOperator" Association="Self.FK_StudentRoll_DataEntryOperator">
+            <End Role="DataEntryOperator" EntitySet="DataEntryOperators" />
+            <End Role="StudentRoll" EntitySet="StudentRolls" />
+          </AssociationSet>
+          <AssociationSet Name="FK_YearMaster_DataEntryOperator" Association="Self.FK_YearMaster_DataEntryOperator">
+            <End Role="DataEntryOperator" EntitySet="DataEntryOperators" />
+            <End Role="YearMaster" EntitySet="YearMasters" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StudentRoll_SectionMaster" Association="Self.FK_StudentRoll_SectionMaster">
+            <End Role="SectionMaster" EntitySet="SectionMasters" />
+            <End Role="StudentRoll" EntitySet="StudentRolls" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StudentRoll_StudentAdmission" Association="Self.FK_StudentRoll_StudentAdmission">
+            <End Role="StudentAdmission" EntitySet="StudentAdmissions" />
+            <End Role="StudentRoll" EntitySet="StudentRolls" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StudentFees_StudentRoll" Association="Self.FK_StudentFees_StudentRoll">
+            <End Role="StudentRoll" EntitySet="StudentRolls" />
+            <End Role="StudentFees" EntitySet="StudentFees" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StudentRoll_YearMaster" Association="Self.FK_StudentRoll_YearMaster">
+            <End Role="YearMaster" EntitySet="YearMasters" />
+            <End Role="StudentRoll" EntitySet="StudentRolls" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="SVEntityDataModelStoreContainer" CdmEntityContainer="SVEntitiesDataModel">
+          <EntitySetMapping Name="ClassMasters">
+            <EntityTypeMapping TypeName="SVEntityDataModel.ClassMaster">
+              <MappingFragment StoreEntitySet="ClassMaster">
+                <ScalarProperty Name="ClassMasterID" ColumnName="ClassMasterID" />
+                <ScalarProperty Name="ClassName" ColumnName="ClassName" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="DataEntryOperatorID" ColumnName="DataEntryOperatorID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DataEntryOperators">
+            <EntityTypeMapping TypeName="SVEntityDataModel.DataEntryOperator">
+              <MappingFragment StoreEntitySet="DataEntryOperator">
+                <ScalarProperty Name="DataEntryOperatorID" ColumnName="DataEntryOperatorID" />
+                <ScalarProperty Name="DataEntryOperatorName" ColumnName="DataEntryOperatorName" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SectionMasters">
+            <EntityTypeMapping TypeName="SVEntityDataModel.SectionMaster">
+              <MappingFragment StoreEntitySet="SectionMaster">
+                <ScalarProperty Name="SectionMasterID" ColumnName="SectionMasterID" />
+                <ScalarProperty Name="ClassMasterID" ColumnName="ClassMasterID" />
+                <ScalarProperty Name="SectionName" ColumnName="SectionName" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="DataEntryOperatorID" ColumnName="DataEntryOperatorID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="StudentAdmissions">
+            <EntityTypeMapping TypeName="SVEntityDataModel.StudentAdmission">
+              <MappingFragment StoreEntitySet="StudentAdmission">
+                <ScalarProperty Name="StudentAdmissionID" ColumnName="StudentAdmissionID" />
+                <ScalarProperty Name="AdmissionNumber" ColumnName="AdmissionNumber" />
+                <ScalarProperty Name="StudentName" ColumnName="StudentName" />
+                <ScalarProperty Name="FatherName" ColumnName="FatherName" />
+                <ScalarProperty Name="ContactNumber" ColumnName="ContactNumber" />
+                <ScalarProperty Name="EMISNumber" ColumnName="EMISNumber" />
+                <ScalarProperty Name="AadhaarNumber" ColumnName="AadhaarNumber" />
+                <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
+                <ScalarProperty Name="BloodGroup" ColumnName="BloodGroup" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="DataEntryOperatorID" ColumnName="DataEntryOperatorID" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="Community" ColumnName="Community" />
+                <ScalarProperty Name="MotherName" ColumnName="MotherName" />
+                <ScalarProperty Name="PlaceOfBirth" ColumnName="PlaceOfBirth" />
+                <ScalarProperty Name="AdmissionYear" ColumnName="AdmissionYear" />
+                <ScalarProperty Name="AdmissionClass" ColumnName="AdmissionClass" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="StudentFees">
+            <EntityTypeMapping TypeName="SVEntityDataModel.StudentFee">
+              <MappingFragment StoreEntitySet="StudentFees">
+                <ScalarProperty Name="StudentFeesID" ColumnName="StudentFeesID" />
+                <ScalarProperty Name="StudentRollID" ColumnName="StudentRollID" />
+                <ScalarProperty Name="TotalFees" ColumnName="TotalFees" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="DataEntryOperatorID" ColumnName="DataEntryOperatorID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="StudentRolls">
+            <EntityTypeMapping TypeName="SVEntityDataModel.StudentRoll">
+              <MappingFragment StoreEntitySet="StudentRoll">
+                <ScalarProperty Name="StudentRollID" ColumnName="StudentRollID" />
+                <ScalarProperty Name="RollNumber" ColumnName="RollNumber" />
+                <ScalarProperty Name="StudentAdmissionID" ColumnName="StudentAdmissionID" />
+                <ScalarProperty Name="ClassMasterID" ColumnName="ClassMasterID" />
+                <ScalarProperty Name="SectionMasterID" ColumnName="SectionMasterID" />
+                <ScalarProperty Name="YearMasterID" ColumnName="YearMasterID" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="DataEntryOperatorID" ColumnName="DataEntryOperatorID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="YearMasters">
+            <EntityTypeMapping TypeName="SVEntityDataModel.YearMaster">
+              <MappingFragment StoreEntitySet="YearMaster">
+                <ScalarProperty Name="YearMasterID" ColumnName="YearMasterID" />
+                <ScalarProperty Name="YearName" ColumnName="YearName" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="DataEntryOperatorID" ColumnName="DataEntryOperatorID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
