@@ -16,7 +16,7 @@ namespace SVHigherSecondaryAPI.Controllers
     {
         private SVEntitiesDataModel db = new SVEntitiesDataModel();
 
-        // GET: api/DataEntryOperators
+        //1 GET: api/DataEntryOperators
         public List<DataEntryOperatorBE> GetDataEntryOperators()
         {
             List<DataEntryOperatorBE> objBEList = new List<DataEntryOperatorBE>();
@@ -35,7 +35,7 @@ namespace SVHigherSecondaryAPI.Controllers
             return objBEList;
         }     
 
-        // GET: api/DataEntryOperators/5
+        //2 GET: api/DataEntryOperators/5
         [Route("api/Operators/{id}")]
         public List<DataEntryOperatorBE> GetDataEntryOperators(int id)
         {
@@ -55,7 +55,30 @@ namespace SVHigherSecondaryAPI.Controllers
             return objBEList;
         }
 
-        // GET: api/DataEntryOperators/5
+        //3
+        [Route("api/DropOperator/{id}")]
+        public bool GetRemoveOperatorDetails(int id)
+        {
+            DataEntryOperator dataEntryOperator = db.DataEntryOperators.Find(id);
+            if (dataEntryOperator == null)
+            {
+                return false;
+            }
+            try
+            {
+                db.DataEntryOperators.Remove(dataEntryOperator);
+                db.SaveChanges();
+                return true;
+            }
+            catch (Exception)
+            {
+
+                return false;
+            }
+           
+        }
+
+        //4 GET: api/DataEntryOperators/5
         [ResponseType(typeof(DataEntryOperator))]
         public DataEntryOperatorBE GetDataEntryOperator(int id)
         {
@@ -74,43 +97,7 @@ namespace SVHigherSecondaryAPI.Controllers
             return objBE;
         }
 
-
-        // PUT: api/DataEntryOperators/5
-        [ResponseType(typeof(void))]
-        public IHttpActionResult PutDataEntryOperator(int id, DataEntryOperatorBE dataEntryOperator)
-        {
-           
-            if (id != dataEntryOperator.DataEntryOperatorID)
-            {
-                return BadRequest();
-            }
-
-            DataEntryOperator objDE = db.DataEntryOperators.Find(id);
-
-            objDE.DataEntryOperatorName = dataEntryOperator.DataEntryOperatorName;
-            objDE.CreatedBy = dataEntryOperator.CreatedBy;
-            objDE.CreatedDate = dataEntryOperator.CreatedDate;
-
-            try
-            {
-                db.SaveChanges();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!DataEntryOperatorExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return StatusCode(HttpStatusCode.NoContent);
-        }
-
-        // POST: api/DataEntryOperators
+        //5 POST: api/DataEntryOperators
         [ResponseType(typeof(DataEntryOperatorBE))]
         public IHttpActionResult PostDataEntryOperator(DataEntryOperatorBE dataEntryOperator)
         {
@@ -118,19 +105,32 @@ namespace SVHigherSecondaryAPI.Controllers
             {
                 return BadRequest(ModelState);
             }
-            DataEntryOperator objDE = new DataEntryOperator
+            if (dataEntryOperator.DataEntryOperatorID > 0)
             {
-                DataEntryOperatorName = dataEntryOperator.DataEntryOperatorName,
-                CreatedDate = dataEntryOperator.CreatedDate,
-                CreatedBy = dataEntryOperator.CreatedBy
-            };
-            db.DataEntryOperators.Add(objDE);
-            db.SaveChanges();
+                DataEntryOperator objDE = db.DataEntryOperators.Find(dataEntryOperator.DataEntryOperatorID);
+
+                objDE.DataEntryOperatorName = dataEntryOperator.DataEntryOperatorName;
+                objDE.CreatedBy = dataEntryOperator.CreatedBy;
+                objDE.CreatedDate = dataEntryOperator.CreatedDate;
+                db.SaveChanges();
+               
+            }
+            else
+            {
+                DataEntryOperator objDE = new DataEntryOperator
+                {
+                    DataEntryOperatorName = dataEntryOperator.DataEntryOperatorName,
+                    CreatedDate = dataEntryOperator.CreatedDate,
+                    CreatedBy = dataEntryOperator.CreatedBy
+                };
+                db.DataEntryOperators.Add(objDE);
+                db.SaveChanges();
+            }
 
             return CreatedAtRoute("DefaultApi", new { id = dataEntryOperator.DataEntryOperatorID }, dataEntryOperator);
         }
 
-        // DELETE: api/DataEntryOperators/5
+        //6 DELETE: api/DataEntryOperators/5
         [ResponseType(typeof(DataEntryOperatorBE))]
         public IHttpActionResult DeleteDataEntryOperator(int id)
         {
@@ -154,6 +154,7 @@ namespace SVHigherSecondaryAPI.Controllers
             return Ok(objBE);
         }
 
+        //7
         protected override void Dispose(bool disposing)
         {
             if (disposing)
@@ -163,6 +164,7 @@ namespace SVHigherSecondaryAPI.Controllers
             base.Dispose(disposing);
         }
 
+        //8
         private bool DataEntryOperatorExists(int id)
         {
             return db.DataEntryOperators.Count(e => e.DataEntryOperatorID == id) > 0;
