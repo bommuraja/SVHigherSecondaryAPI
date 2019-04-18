@@ -198,6 +198,7 @@
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\DataEntryOperatorsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\StudentAdmissionsController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -215,6 +216,7 @@
     <Compile Include="Models\StudentAdmission.cs">
       <DependentUpon>SVEntityDataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\StudentAdmissionData.cs" />
     <Compile Include="Models\StudentFee.cs">
       <DependentUpon>SVEntityDataModel.tt</DependentUpon>
     </Compile>
