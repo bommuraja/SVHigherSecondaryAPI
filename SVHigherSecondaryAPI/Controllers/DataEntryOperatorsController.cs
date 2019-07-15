@@ -21,6 +21,7 @@ namespace SVHigherSecondaryAPI.Controllers
         public List<DataEntryOperatorBE> GetDataEntryOperators()
         {
             List<DataEntryOperatorBE> objBEList = new List<DataEntryOperatorBE>();
+
             foreach (var item in db.DataEntryOperators)
             {
                 objBEList.Add(
