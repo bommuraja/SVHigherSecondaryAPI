@@ -28,9 +28,9 @@ namespace SVHigherSecondaryAPI.Models
         public virtual DbSet<ClassMaster> ClassMasters { get; set; }
         public virtual DbSet<DataEntryOperator> DataEntryOperators { get; set; }
         public virtual DbSet<SectionMaster> SectionMasters { get; set; }
-        public virtual DbSet<StudentAdmission> StudentAdmissions { get; set; }
         public virtual DbSet<StudentFee> StudentFees { get; set; }
         public virtual DbSet<StudentRoll> StudentRolls { get; set; }
         public virtual DbSet<YearMaster> YearMasters { get; set; }
+        public virtual DbSet<StudentAdmission> StudentAdmissions { get; set; }
     }
 }

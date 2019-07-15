@@ -37,6 +37,11 @@ namespace SVHigherSecondaryAPI.Models
         public string PlaceOfBirth { get; set; }
         public string AdmissionYear { get; set; }
         public string AdmissionClass { get; set; }
+        public string PresentClass { get; set; }
+        public string AddressLine1 { get; set; }
+        public string AddressLine2 { get; set; }
+        public string AddressLine3 { get; set; }
+        public string Pincode { get; set; }
     
         public virtual DataEntryOperator DataEntryOperator { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

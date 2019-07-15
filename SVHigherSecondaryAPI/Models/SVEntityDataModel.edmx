@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="SVEntityDataModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="SVEntityDataModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="ClassMaster">
           <Key>
             <PropertyRef Name="ClassMasterID" />
@@ -54,6 +54,11 @@
           <Property Name="PlaceOfBirth" Type="nvarchar" MaxLength="50" />
           <Property Name="AdmissionYear" Type="nvarchar" MaxLength="50" />
           <Property Name="AdmissionClass" Type="nvarchar" MaxLength="50" />
+          <Property Name="PresentClass" Type="nvarchar" MaxLength="50" />
+          <Property Name="AddressLine1" Type="nvarchar" MaxLength="50" />
+          <Property Name="AddressLine2" Type="nvarchar" MaxLength="50" />
+          <Property Name="AddressLine3" Type="nvarchar" MaxLength="50" />
+          <Property Name="Pincode" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="StudentFees">
           <Key>
@@ -288,8 +293,7 @@
             <End Role="YearMaster" EntitySet="YearMaster" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="SVEntityDataModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -315,10 +319,10 @@
           <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="ClassMasters" Relationship="Self.FK_ClassMaster_DataEntryOperator" FromRole="DataEntryOperator" ToRole="ClassMaster" />
           <NavigationProperty Name="SectionMasters" Relationship="Self.FK_SectionMaster_DataEntryOperator" FromRole="DataEntryOperator" ToRole="SectionMaster" />
-          <NavigationProperty Name="StudentAdmissions" Relationship="Self.FK_StudentAdmission_DataEntryOperator" FromRole="DataEntryOperator" ToRole="StudentAdmission" />
           <NavigationProperty Name="StudentFees" Relationship="Self.FK_StudentFees_DataEntryOperator" FromRole="DataEntryOperator" ToRole="StudentFees" />
           <NavigationProperty Name="StudentRolls" Relationship="Self.FK_StudentRoll_DataEntryOperator" FromRole="DataEntryOperator" ToRole="StudentRoll" />
           <NavigationProperty Name="YearMasters" Relationship="Self.FK_YearMaster_DataEntryOperator" FromRole="DataEntryOperator" ToRole="YearMaster" />
+          <NavigationProperty Name="StudentAdmissions" Relationship="SVEntityDataModel.FK_StudentAdmission_DataEntryOperator" FromRole="DataEntryOperator" ToRole="StudentAdmission" />
         </EntityType>
         <EntityType Name="SectionMaster">
           <Key>
@@ -332,30 +336,6 @@
           <NavigationProperty Name="ClassMaster" Relationship="Self.FK_SectionMaster_ClassMaster" FromRole="SectionMaster" ToRole="ClassMaster" />
           <NavigationProperty Name="DataEntryOperator" Relationship="Self.FK_SectionMaster_DataEntryOperator" FromRole="SectionMaster" ToRole="DataEntryOperator" />
           <NavigationProperty Name="StudentRolls" Relationship="Self.FK_StudentRoll_SectionMaster" FromRole="SectionMaster" ToRole="StudentRoll" />
-        </EntityType>
-        <EntityType Name="StudentAdmission">
-          <Key>
-            <PropertyRef Name="StudentAdmissionID" />
-          </Key>
-          <Property Name="StudentAdmissionID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="AdmissionNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="StudentName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="FatherName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="ContactNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="EMISNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="AadhaarNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="DateOfBirth" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="BloodGroup" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="CreatedDate" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="DataEntryOperatorID" Type="Int32" />
-          <Property Name="Gender" Type="Boolean" />
-          <Property Name="Community" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="MotherName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="PlaceOfBirth" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="AdmissionYear" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="AdmissionClass" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="DataEntryOperator" Relationship="Self.FK_StudentAdmission_DataEntryOperator" FromRole="StudentAdmission" ToRole="DataEntryOperator" />
-          <NavigationProperty Name="StudentRolls" Relationship="Self.FK_StudentRoll_StudentAdmission" FromRole="StudentAdmission" ToRole="StudentRoll" />
         </EntityType>
         <EntityType Name="StudentFee">
           <Key>
@@ -384,9 +364,9 @@
           <NavigationProperty Name="ClassMaster" Relationship="Self.FK_StudentRoll_ClassMaster" FromRole="StudentRoll" ToRole="ClassMaster" />
           <NavigationProperty Name="DataEntryOperator" Relationship="Self.FK_StudentRoll_DataEntryOperator" FromRole="StudentRoll" ToRole="DataEntryOperator" />
           <NavigationProperty Name="SectionMaster" Relationship="Self.FK_StudentRoll_SectionMaster" FromRole="StudentRoll" ToRole="SectionMaster" />
-          <NavigationProperty Name="StudentAdmission" Relationship="Self.FK_StudentRoll_StudentAdmission" FromRole="StudentRoll" ToRole="StudentAdmission" />
           <NavigationProperty Name="StudentFees" Relationship="Self.FK_StudentFees_StudentRoll" FromRole="StudentRoll" ToRole="StudentFees" />
           <NavigationProperty Name="YearMaster" Relationship="Self.FK_StudentRoll_YearMaster" FromRole="StudentRoll" ToRole="YearMaster" />
+          <NavigationProperty Name="StudentAdmission" Relationship="SVEntityDataModel.FK_StudentRoll_StudentAdmission" FromRole="StudentRoll" ToRole="StudentAdmission" />
         </EntityType>
         <EntityType Name="YearMaster">
           <Key>
@@ -447,18 +427,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_StudentAdmission_DataEntryOperator">
-          <End Role="DataEntryOperator" Type="Self.DataEntryOperator" Multiplicity="0..1" />
-          <End Role="StudentAdmission" Type="Self.StudentAdmission" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="DataEntryOperator">
-              <PropertyRef Name="DataEntryOperatorID" />
-            </Principal>
-            <Dependent Role="StudentAdmission">
-              <PropertyRef Name="DataEntryOperatorID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_StudentFees_DataEntryOperator">
           <End Role="DataEntryOperator" Type="Self.DataEntryOperator" Multiplicity="0..1" />
           <End Role="StudentFees" Type="Self.StudentFee" Multiplicity="*" />
@@ -507,18 +475,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_StudentRoll_StudentAdmission">
-          <End Role="StudentAdmission" Type="Self.StudentAdmission" Multiplicity="0..1" />
-          <End Role="StudentRoll" Type="Self.StudentRoll" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="StudentAdmission">
-              <PropertyRef Name="StudentAdmissionID" />
-            </Principal>
-            <Dependent Role="StudentRoll">
-              <PropertyRef Name="StudentAdmissionID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_StudentFees_StudentRoll">
           <End Role="StudentRoll" Type="Self.StudentRoll" Multiplicity="0..1" />
           <End Role="StudentFees" Type="Self.StudentFee" Multiplicity="*" />
@@ -547,7 +503,6 @@
           <EntitySet Name="ClassMasters" EntityType="Self.ClassMaster" />
           <EntitySet Name="DataEntryOperators" EntityType="Self.DataEntryOperator" />
           <EntitySet Name="SectionMasters" EntityType="Self.SectionMaster" />
-          <EntitySet Name="StudentAdmissions" EntityType="Self.StudentAdmission" />
           <EntitySet Name="StudentFees" EntityType="Self.StudentFee" />
           <EntitySet Name="StudentRolls" EntityType="Self.StudentRoll" />
           <EntitySet Name="YearMasters" EntityType="Self.YearMaster" />
@@ -567,10 +522,6 @@
             <End Role="DataEntryOperator" EntitySet="DataEntryOperators" />
             <End Role="SectionMaster" EntitySet="SectionMasters" />
           </AssociationSet>
-          <AssociationSet Name="FK_StudentAdmission_DataEntryOperator" Association="Self.FK_StudentAdmission_DataEntryOperator">
-            <End Role="DataEntryOperator" EntitySet="DataEntryOperators" />
-            <End Role="StudentAdmission" EntitySet="StudentAdmissions" />
-          </AssociationSet>
           <AssociationSet Name="FK_StudentFees_DataEntryOperator" Association="Self.FK_StudentFees_DataEntryOperator">
             <End Role="DataEntryOperator" EntitySet="DataEntryOperators" />
             <End Role="StudentFees" EntitySet="StudentFees" />
@@ -587,10 +538,6 @@
             <End Role="SectionMaster" EntitySet="SectionMasters" />
             <End Role="StudentRoll" EntitySet="StudentRolls" />
           </AssociationSet>
-          <AssociationSet Name="FK_StudentRoll_StudentAdmission" Association="Self.FK_StudentRoll_StudentAdmission">
-            <End Role="StudentAdmission" EntitySet="StudentAdmissions" />
-            <End Role="StudentRoll" EntitySet="StudentRolls" />
-          </AssociationSet>
           <AssociationSet Name="FK_StudentFees_StudentRoll" Association="Self.FK_StudentFees_StudentRoll">
             <End Role="StudentRoll" EntitySet="StudentRolls" />
             <End Role="StudentFees" EntitySet="StudentFees" />
@@ -599,7 +546,69 @@
             <End Role="YearMaster" EntitySet="YearMasters" />
             <End Role="StudentRoll" EntitySet="StudentRolls" />
           </AssociationSet>
+          <EntitySet Name="StudentAdmissions" EntityType="SVEntityDataModel.StudentAdmission" />
+          <AssociationSet Name="FK_StudentAdmission_DataEntryOperator" Association="SVEntityDataModel.FK_StudentAdmission_DataEntryOperator">
+            <End Role="DataEntryOperator" EntitySet="DataEntryOperators" />
+            <End Role="StudentAdmission" EntitySet="StudentAdmissions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StudentRoll_StudentAdmission" Association="SVEntityDataModel.FK_StudentRoll_StudentAdmission">
+            <End Role="StudentAdmission" EntitySet="StudentAdmissions" />
+            <End Role="StudentRoll" EntitySet="StudentRolls" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="StudentAdmission">
+          <Key>
+            <PropertyRef Name="StudentAdmissionID" />
+          </Key>
+          <Property Name="StudentAdmissionID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AdmissionNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="StudentName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FatherName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ContactNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="EMISNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AadhaarNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DateOfBirth" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="BloodGroup" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedDate" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DataEntryOperatorID" Type="Int32" />
+          <Property Name="Gender" Type="Boolean" />
+          <Property Name="Community" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MotherName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PlaceOfBirth" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AdmissionYear" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AdmissionClass" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PresentClass" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AddressLine1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AddressLine2" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AddressLine3" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Pincode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="DataEntryOperator" Relationship="SVEntityDataModel.FK_StudentAdmission_DataEntryOperator" FromRole="StudentAdmission" ToRole="DataEntryOperator" />
+          <NavigationProperty Name="StudentRolls" Relationship="SVEntityDataModel.FK_StudentRoll_StudentAdmission" FromRole="StudentAdmission" ToRole="StudentRoll" />
+        </EntityType>
+        <Association Name="FK_StudentAdmission_DataEntryOperator">
+          <End Type="SVEntityDataModel.DataEntryOperator" Role="DataEntryOperator" Multiplicity="0..1" />
+          <End Type="SVEntityDataModel.StudentAdmission" Role="StudentAdmission" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DataEntryOperator">
+              <PropertyRef Name="DataEntryOperatorID" />
+            </Principal>
+            <Dependent Role="StudentAdmission">
+              <PropertyRef Name="DataEntryOperatorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StudentRoll_StudentAdmission">
+          <End Type="SVEntityDataModel.StudentAdmission" Role="StudentAdmission" Multiplicity="0..1" />
+          <End Type="SVEntityDataModel.StudentRoll" Role="StudentRoll" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StudentAdmission">
+              <PropertyRef Name="StudentAdmissionID" />
+            </Principal>
+            <Dependent Role="StudentRoll">
+              <PropertyRef Name="StudentAdmissionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -637,29 +646,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="StudentAdmissions">
-            <EntityTypeMapping TypeName="SVEntityDataModel.StudentAdmission">
-              <MappingFragment StoreEntitySet="StudentAdmission">
-                <ScalarProperty Name="StudentAdmissionID" ColumnName="StudentAdmissionID" />
-                <ScalarProperty Name="AdmissionNumber" ColumnName="AdmissionNumber" />
-                <ScalarProperty Name="StudentName" ColumnName="StudentName" />
-                <ScalarProperty Name="FatherName" ColumnName="FatherName" />
-                <ScalarProperty Name="ContactNumber" ColumnName="ContactNumber" />
-                <ScalarProperty Name="EMISNumber" ColumnName="EMISNumber" />
-                <ScalarProperty Name="AadhaarNumber" ColumnName="AadhaarNumber" />
-                <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
-                <ScalarProperty Name="BloodGroup" ColumnName="BloodGroup" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="DataEntryOperatorID" ColumnName="DataEntryOperatorID" />
-                <ScalarProperty Name="Gender" ColumnName="Gender" />
-                <ScalarProperty Name="Community" ColumnName="Community" />
-                <ScalarProperty Name="MotherName" ColumnName="MotherName" />
-                <ScalarProperty Name="PlaceOfBirth" ColumnName="PlaceOfBirth" />
-                <ScalarProperty Name="AdmissionYear" ColumnName="AdmissionYear" />
-                <ScalarProperty Name="AdmissionClass" ColumnName="AdmissionClass" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="StudentFees">
             <EntityTypeMapping TypeName="SVEntityDataModel.StudentFee">
               <MappingFragment StoreEntitySet="StudentFees">
@@ -692,6 +678,34 @@
                 <ScalarProperty Name="YearName" ColumnName="YearName" />
                 <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
                 <ScalarProperty Name="DataEntryOperatorID" ColumnName="DataEntryOperatorID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="StudentAdmissions">
+            <EntityTypeMapping TypeName="SVEntityDataModel.StudentAdmission">
+              <MappingFragment StoreEntitySet="StudentAdmission">
+                <ScalarProperty Name="Pincode" ColumnName="Pincode" />
+                <ScalarProperty Name="AddressLine3" ColumnName="AddressLine3" />
+                <ScalarProperty Name="AddressLine2" ColumnName="AddressLine2" />
+                <ScalarProperty Name="AddressLine1" ColumnName="AddressLine1" />
+                <ScalarProperty Name="PresentClass" ColumnName="PresentClass" />
+                <ScalarProperty Name="AdmissionClass" ColumnName="AdmissionClass" />
+                <ScalarProperty Name="AdmissionYear" ColumnName="AdmissionYear" />
+                <ScalarProperty Name="PlaceOfBirth" ColumnName="PlaceOfBirth" />
+                <ScalarProperty Name="MotherName" ColumnName="MotherName" />
+                <ScalarProperty Name="Community" ColumnName="Community" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="DataEntryOperatorID" ColumnName="DataEntryOperatorID" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="BloodGroup" ColumnName="BloodGroup" />
+                <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
+                <ScalarProperty Name="AadhaarNumber" ColumnName="AadhaarNumber" />
+                <ScalarProperty Name="EMISNumber" ColumnName="EMISNumber" />
+                <ScalarProperty Name="ContactNumber" ColumnName="ContactNumber" />
+                <ScalarProperty Name="FatherName" ColumnName="FatherName" />
+                <ScalarProperty Name="StudentName" ColumnName="StudentName" />
+                <ScalarProperty Name="AdmissionNumber" ColumnName="AdmissionNumber" />
+                <ScalarProperty Name="StudentAdmissionID" ColumnName="StudentAdmissionID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

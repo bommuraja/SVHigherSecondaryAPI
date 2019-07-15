@@ -42,7 +42,12 @@ namespace SVHigherSecondaryAPI.Controllers
                         MotherName = item.MotherName,
                         PlaceOfBirth = item.PlaceOfBirth,
                         AdmissionYear = item.AdmissionYear,
-                        AdmissionClass = item.AdmissionClass
+                        AdmissionClass = item.AdmissionClass,
+                        PresentClass = item.PresentClass,
+                        AddressLine1 = item.AddressLine1,
+                        AddressLine2 = item.AddressLine2,
+                        AddressLine3 = item.AddressLine3,
+                        Pincode = item.Pincode
                     }
                 );
             }
@@ -100,7 +105,12 @@ namespace SVHigherSecondaryAPI.Controllers
                     MotherName = studentAdmission.MotherName,
                     PlaceOfBirth = studentAdmission.PlaceOfBirth,
                     AdmissionYear = studentAdmission.AdmissionYear,
-                    AdmissionClass = studentAdmission.AdmissionClass
+                    AdmissionClass = studentAdmission.AdmissionClass,
+                    PresentClass = studentAdmission.PresentClass,
+                    AddressLine1 = studentAdmission.AddressLine1,
+                    AddressLine2 = studentAdmission.AddressLine2,
+                    AddressLine3 = studentAdmission.AddressLine3,
+                    Pincode = studentAdmission.Pincode
                 };
             }
             return objData;
@@ -138,12 +148,16 @@ namespace SVHigherSecondaryAPI.Controllers
                     objDE.PlaceOfBirth = studentAdmissionData.PlaceOfBirth;
                     objDE.AdmissionYear = studentAdmissionData.AdmissionYear;
                     objDE.AdmissionClass = studentAdmissionData.AdmissionClass;
+                    objDE.PresentClass = studentAdmissionData.PresentClass;
+                    objDE.AddressLine1 = studentAdmissionData.AddressLine1;
+                    objDE.AddressLine2 = studentAdmissionData.AddressLine2;
+                    objDE.AddressLine3 = studentAdmissionData.AddressLine3;
+                    objDE.Pincode = studentAdmissionData.Pincode;
                     db.SaveChanges();
 
                 }
                 else
                 {
-                    studentAdmissionData.DataEntryOperatorID = 7;
                     StudentAdmission objDE = new StudentAdmission
                     {
                         StudentAdmissionID = studentAdmissionData.StudentAdmissionID,
@@ -162,7 +176,12 @@ namespace SVHigherSecondaryAPI.Controllers
                         MotherName = studentAdmissionData.MotherName,
                         PlaceOfBirth = studentAdmissionData.PlaceOfBirth,
                         AdmissionYear = studentAdmissionData.AdmissionYear,
-                        AdmissionClass = studentAdmissionData.AdmissionClass
+                        AdmissionClass = studentAdmissionData.AdmissionClass,
+                        PresentClass = studentAdmissionData.PresentClass,
+                        AddressLine1 = studentAdmissionData.AddressLine1,
+                        AddressLine2 = studentAdmissionData.AddressLine2,
+                        AddressLine3 = studentAdmissionData.AddressLine3,
+                        Pincode = studentAdmissionData.Pincode
                     };
                     db.StudentAdmissions.Add(objDE);
                     db.SaveChanges();

@@ -19,10 +19,10 @@ namespace SVHigherSecondaryAPI.Models
         {
             this.ClassMasters = new HashSet<ClassMaster>();
             this.SectionMasters = new HashSet<SectionMaster>();
-            this.StudentAdmissions = new HashSet<StudentAdmission>();
             this.StudentFees = new HashSet<StudentFee>();
             this.StudentRolls = new HashSet<StudentRoll>();
             this.YearMasters = new HashSet<YearMaster>();
+            this.StudentAdmissions = new HashSet<StudentAdmission>();
         }
     
         public int DataEntryOperatorID { get; set; }
@@ -35,12 +35,12 @@ namespace SVHigherSecondaryAPI.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SectionMaster> SectionMasters { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<StudentAdmission> StudentAdmissions { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<StudentFee> StudentFees { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<StudentRoll> StudentRolls { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<YearMaster> YearMasters { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<StudentAdmission> StudentAdmissions { get; set; }
     }
 }

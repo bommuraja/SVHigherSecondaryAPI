@@ -32,9 +32,9 @@ namespace SVHigherSecondaryAPI.Models
         public virtual ClassMaster ClassMaster { get; set; }
         public virtual DataEntryOperator DataEntryOperator { get; set; }
         public virtual SectionMaster SectionMaster { get; set; }
-        public virtual StudentAdmission StudentAdmission { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<StudentFee> StudentFees { get; set; }
         public virtual YearMaster YearMaster { get; set; }
+        public virtual StudentAdmission StudentAdmission { get; set; }
     }
 }
